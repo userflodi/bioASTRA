@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astra | Elite OSINT Solutions</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=JetBrains+Mono&display=swap">
+    <style>
+        :root {
+            --obsidian: #0a0a12;
+            --emerald: #2ecc71;
+            --sapphire: #3498db;
+            --platinum: #ecf0f1;
+            --crimson: #e74c3c;
+            --gold: #f1c40f;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--obsidian);
+            color: var(--platinum);
+            overflow-x: hidden;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(46, 204, 113, 0.03) 0%, transparent 40%),
+                linear-gradient(to bottom, #0a0a12 0%, #14141f 100%);
+        }
+        
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(52, 152, 219, 0.02)" d="M0,0 L100,0 L100,100 L0,100 Z" /></svg>'),
+                linear-gradient(135deg, rgba(46,204,113,0.02) 0%, rgba(52,152,219,0.02) 100%);
+            z-index: -1;
+        }
+        
+        .logo {
+            font-size: 5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--emerald), var(--sapphire));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            color: var(--platinum);
+            margin-bottom: 3rem;
+            max-width: 700px;
+            line-height: 1.4;
+            opacity: 0.9;
+        }
+        
+        .divider {
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--emerald), var(--sapphire));
+            margin: 2rem auto;
+            border-radius: 3px;
+        }
+        
+        .bio-card {
+            background: rgba(20, 20, 30, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform-style: preserve-3d;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .bio-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.4);
+        }
+        
+        .bio-section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .bio-title {
+            font-size: 1.8rem;
+            color: var(--emerald);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .bio-title::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50%;
+            height: 2px;
+            background: var(--emerald);
+        }
+        
+        .bio-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: rgba(236, 240, 241, 0.8);
+        }
+        
+        .highlight {
+            color: var(--gold);
+            font-weight: 600;
+        }
+        
+        .age-chip {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--emerald), var(--sapphire));
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            margin: 1rem 0;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+        }
+        
+        .warning-box {
+            background: rgba(231, 76, 60, 0.1);
+            border-left: 4px solid var(--crimson);
+            padding: 1.5rem;
+            margin: 2.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .warning-title {
+            color: var(--crimson);
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+        }
+        
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--emerald), var(--sapphire));
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3);
+            text-decoration: none;
+            margin-top: 1.5rem;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(46, 204, 113, 0.4);
+        }
+        
+        .cta-button:active {
+            transform: translateY(1px);
+        }
+        
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--emerald), var(--sapphire));
+            filter: blur(40px);
+            animation: float-shapes 15s infinite linear;
+        }
+        
+        @keyframes float-shapes {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(100px, -100px) rotate(360deg); }
+        }
+        
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            color: rgba(236, 240, 241, 0.5);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape" style="width: 300px; height: 300px; top: 10%; left: 5%; animation-delay: 0s;"></div>
+        <div class="shape" style="width: 400px; height: 400px; top: 60%; left: 70%; animation-delay: 3s;"></div>
+        <div class="shape" style="width: 250px; height: 250px; top: 30%; left: 40%; animation-delay: 6s;"></div>
+    </div>
+    
+    <section class="hero">
+        <h1 class="logo">ASTRA</h1>
+        <p class="tagline">Элитные OSINT и докс-услуги с 2023 года</p>
+        <div class="divider"></div>
+        
+        <div class="bio-card">
+            <div class="bio-section">
+                <h2 class="bio-title">Биография</h2>
+                <p class="bio-text">
+                    В мире киберразведки с 2023 года. Начал изучать <span class="highlight">докс и OSINT</span> в 12 лет, 
+                    постепенно превратив увлечение в профессиональную деятельность.
+                </p>
+                <p class="bio-text">
+                    Специализируюсь на <span class="highlight">глубоком анализе</span> и предоставлении точных данных. 
+                    Каждый проект — это вызов, который я принимаю с максимальной ответственностью.
+                </p>
+                
+                <div class="age-chip">Возраст: 15 лет</div>
+                
+                <p class="bio-text">
+                    Услуги предоставляются на платной основе. 
+                    <span class="highlight">Бесплатных консультаций нет.</span> Гарантия качества — 
+                    но возврат средств не предусмотрен.
+                </p>
+            </div>
+            
+            <div class="bio-section">
+                <h2 class="bio-title">Специализация</h2>
+                <p class="bio-text">
+                    • Профессиональный OSINT-анализ<br>
+                    • Точечный доксинг<br>
+                    • Киберрасследования<br>
+                    • Защита цифрового следа
+                </p>
+            </div>
+            
+            <div class="warning-box">
+                <h3 class="warning-title">Важное предупреждение</h3>
+                <p class="bio-text">
+                    Любые угрозы, провокации или попытки манипуляций приведут к немедленному 
+                    занесению в <span class="highlight">чёрный список</span> без возможности восстановления.
+                </p>
+            </div>
+            
+            <a href="https://t.me/Ow1ner002" class="cta-button">Заказать услугу</a>
+        </div>
+    </section>
+    
+    <footer>
+        <p>| Делал @userloya  |</p>
+        <p>v4.2.0</p>
+    </footer>
+</body>
+</html>
